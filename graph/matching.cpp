@@ -1,67 +1,79 @@
-struct matching {
-  vector< vector<int> > g;
-  vector<int> pa,pb;
-  vector<int> was;
+struct matching{
+  const int NIL = 0;
+  const int INF = 1<<28;
+
+  vector<vector< int > >G;
   int n, m;
-  int res;
-  int iter;
+  vector<int> match, dist;
+  // n: number of nodes on left side, nodes are numbered 1 to n
+  // m: number of nodes on right side, nodes are numbered n+1 to n+m
+  // G = NIL[0] ∪ G1[G[1---n]] ∪ G2[G[n+1---n+m]]
 
-  matching(int _n, int _m) : n(_n), m(_m) {
-    assert(0 <= n && 0 <= m);
-    pa = vector<int>(n, -1);
-    pb = vector<int>(m, -1);
-    was = vector<int>(n, 0);
-    g.resize(n);
-    res = 0;
-    iter = 0;
+  matching(int n,int m){
+    G.resize(n + m + 1);
+    match.resize(n + m + 1,NIL);
+    dist.resize(n + m + 1);
   }
 
-  void add(int from, int to) {
-    assert(0 <= from && from < n && 0 <= to && to < m);
-    g[from].push_back(to);
+  void addEdge(int a,int b){
+    G[a].push_back(b + n);
+    G[b + n].push_back(a);
   }
 
-  bool dfs(int v) {
-    was[v] = iter;
-    for (int u : g[v]) {
-      if (pb[u] == -1) {
-        pa[v] = u;
-        pb[u] = v;
-        return true;
+  bool bfs() {
+      int i, u, v, len;
+      queue< int > Q;
+      for(i=1; i<=n; i++) {
+          if(match[i]==NIL) {
+              dist[i] = 0;
+              Q.push(i);
+          }
+          else dist[i] = INF;
       }
-    }
-    for (int u : g[v]) {
-      if (was[pb[u]] != iter && dfs(pb[u])) {
-        pa[v] = u;
-        pb[u] = v;
-        return true;
+      dist[NIL] = INF;
+      while(!Q.empty()) {
+          u = Q.front(); Q.pop();
+          if(u!=NIL) {
+              len = G[u].size();
+              for(i=0; i<len; i++) {
+                  v = G[u][i];
+                  if(dist[match[v]]==INF) {
+                      dist[match[v]] = dist[u] + 1;
+                      Q.push(match[v]);
+                  }
+              }
+          }
       }
-    }
-    return false;
+      return (dist[NIL]!=INF);
   }
 
-  int solve() {
-    while (true) {
-      iter++;
-      int add = 0;
-      for (int i = 0; i < n; i++) {
-        if (pa[i] == -1 && dfs(i)) {
-          add++;
-        }
+  bool dfs(int u) {
+      int i, v, len;
+      if(u!=NIL) {
+          len = G[u].size();
+          for(i=0; i<len; i++) {
+              v = G[u][i];
+              if(dist[match[v]]==dist[u]+1) {
+                  if(dfs(match[v])) {
+                      match[v] = u;
+                      match[u] = v;
+                      return true;
+                  }
+              }
+          }
+          dist[u] = INF;
+          return false;
       }
-      if (add == 0) {
-        break;
-      }
-      res += add;
-    }
-    return res;
+      return true;
   }
-  
-  int run_one(int v) {
-    if (pa[v] != -1) {
-      return 0;
-    }
-    iter++;
-    return (int) dfs(v);
+
+  int hopcroft_karp() {
+      int matching = 0, i;
+      // match[] is assumed NIL for all vertex in G
+      while(bfs())
+          for(i=1; i<=n; i++)
+              if(match[i]==NIL && dfs(i))
+                  matching++;
+      return matching;
   }
 };

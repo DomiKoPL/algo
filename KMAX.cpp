@@ -1,21 +1,17 @@
 template<typename T>
-class KMaxQueue
-{
+class KMaxQueue{
 private:
 	deque<pair<int, T> > Q;
 	vector<T> val;
 public:
 
-	void init(int n, vector<T> & v)
-	{
+	void init(int n, vector<T> & v){
 		val = v;
 	}
 
-	void add(int id)
-	{
+	void add(int id){
 		int count = 0;
-		while(Q.size() and val[Q.back().first] <= val[id])
-		{
+		while(Q.size() and val[Q.back().first] <= val[id]){
 			count += Q.back().second + 1;
 			Q.pop_back();
 		}

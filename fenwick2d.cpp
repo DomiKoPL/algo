@@ -17,7 +17,7 @@ struct fenwick2d{
 	inline void modify(int x, int y, T val){
 		for(int i = x; i < n; i += lsb(i)){
 			for(int j = y; j < m; j += lsb(j)){
-				fen[i][j] ^= val;
+				fen[i][j] ^= val; // main operation
 			}
 		}
 	}
@@ -26,7 +26,7 @@ struct fenwick2d{
 		T res{};
 		for(int i = x; i > 0; i -= lsb(i)){
 			for(int j = y; j > 0; j -= lsb(j)){
-				res ^= fen[i][j];
+				res ^= fen[i][j]; // main operation
 			}
 		}
 		return res;

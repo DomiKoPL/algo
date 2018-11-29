@@ -7,18 +7,20 @@ struct fenwick{
 		fen.resize(n);
 	}
 
-	void modify(int v, T val){
-		while(v < n){
-			fen[v] += val;
-			v |= (v + 1);
+	inline int lsb(int x){
+		return x & -x;
+	}
+
+	inline void modify(int x, T val){
+		for(int i = x; i < n; i += lsb(i)){
+			fen[i] += val; // main operation
 		}
 	}
 
-	T get(int v){
+	inline T get(int v){
 		T res{};
-		while(v >= 0){
-			res += fen[v];
-			v = (v & (v + 1)) - 1;
+		for(int i = x; i > 0; i -= lsb(i)){
+			res += fen[i]; // main operation
 		}
 		return res;
 	}

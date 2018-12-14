@@ -17,7 +17,7 @@ struct fenwick{
 		}
 	}
 
-	inline T get(int v){
+	inline T get(int x){
 		T res{};
 		for(int i = x; i > 0; i -= lsb(i)){
 			res += fen[i]; // main operation

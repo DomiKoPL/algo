@@ -1,8 +1,8 @@
 struct matching{
   const int NIL = 0;
-  const int INF = 1<<28;
+  const int INF = 1 << 28;
 
-  vector<vector< int > >G;
+  vector<vector<int>> G;
   int n, m;
   vector<int> match, dist;
   // n: number of nodes on left side, nodes are numbered 1 to n
@@ -22,8 +22,8 @@ struct matching{
 
   bool bfs() {
       int i, u, v, len;
-      queue< int > Q;
-      for(i=1; i<=n; i++) {
+      queue<int> Q;
+      for(i = 1; i <= n; i++) {
           if(match[i]==NIL) {
               dist[i] = 0;
               Q.push(i);
@@ -35,9 +35,9 @@ struct matching{
           u = Q.front(); Q.pop();
           if(u!=NIL) {
               len = G[u].size();
-              for(i=0; i<len; i++) {
+              for(i = 0; i < len; i++) {
                   v = G[u][i];
-                  if(dist[match[v]]==INF) {
+                  if(dist[match[v]] == INF) {
                       dist[match[v]] = dist[u] + 1;
                       Q.push(match[v]);
                   }
@@ -51,9 +51,9 @@ struct matching{
       int i, v, len;
       if(u!=NIL) {
           len = G[u].size();
-          for(i=0; i<len; i++) {
+          for(i = 0; i < len; i++) {
               v = G[u][i];
-              if(dist[match[v]]==dist[u]+1) {
+              if(dist[match[v]] == dist[u] + 1) {
                   if(dfs(match[v])) {
                       match[v] = u;
                       match[u] = v;

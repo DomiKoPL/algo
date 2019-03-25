@@ -9,7 +9,7 @@ struct matching{
   // m: number of nodes on right side, nodes are numbered n+1 to n+m
   // G = NIL[0] ∪ G1[G[1---n]] ∪ G2[G[n+1---n+m]]
 
-  matching(int n,int m){
+  matching(int n,int m) : n(n), m(m) {
     G.resize(n + m + 1);
     match.resize(n + m + 1,NIL);
     dist.resize(n + m + 1);

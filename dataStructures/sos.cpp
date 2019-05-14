@@ -27,3 +27,4 @@ struct sos{
 /*TRICK
 sum[mask] - sum[mask ^ (1 << bit)] = sum of elements in group 'bit'
 */
+#include <bits/stdc++.h>

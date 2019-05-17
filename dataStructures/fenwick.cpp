@@ -1,35 +1,22 @@
-template <typename T>
-struct fenwick{
-	vector<T> fen;
-	int n;//size
+template <class T> struct Fenwick {
+	vector<T> fen; // [0, ..., n - 1]
+	int n;
 
-	fenwick(int _n) : n(_n){
-		fen.resize(n);
+	Fenwick(int n) : n(n) { 
+        fen.resize(n); 
+    }
+
+	void upd(int x, T val) { // [0, ..., x] += val
+        for(; x < n; x |= (x + 1)) {
+            fen[x] += val;
+        }
 	}
 
-	inline int lsb(int x){
-		return x & -x;
-	}
-
-	inline void modify(int x, T val){
-		for(int i = x; i < n; i += lsb(i)){
-			fen[i] += val; // main operation
-		}
-	}
-
-	inline T get(int x){
+	T get(int x) { // return sum of [0, ..., x]
 		T res{};
-		for(int i = x; i > 0; i -= lsb(i)){
-			res += fen[i]; // main operation
-		}
+        for(; x >= 0; x = (x & (x + 1)) - 1) {
+            res += fen[x];
+        }
 		return res;
-	}
-};
-
-struct node{
-	int val = ...;//set to default
-
-	void operator += (node & other){
-		...// val += other.val;
 	}
 };

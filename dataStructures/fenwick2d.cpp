@@ -1,42 +1,26 @@
-template <typename T>
-struct fenwick2d{
-	vector<vector<T> > fen;
-	int n,m;
+template <class T> struct Fenwick2D {
+	vector<vector<T>> fen; // [0, ..., n - 1] [0, ..., m  - 1]
+	int n, m;
 
-	fenwick2d(int _n,int _m) : n(_n), m(_m){
-		fen.resize(n);
-		for (int i = 0; i < n; ++i){
-			fen[i].resize(m);
-		}
+	Fenwick2D(int n, int m) : n(n), m(m) { 
+        fen.resize(n, vector<T>(m)); 
+    }
+
+	void upd(int x, int y, T val) { // [0, ..., x][0, ..., y] += val
+        for(int i = x; i < n; i |= (i + 1)) {
+            for(int j = y; j < n; j |= (j + 1)) {
+                fen[i][j] += val;
+            }
+        }
 	}
 
-	inline int lsb(int x){
-		return x & -x;
-	}
-
-	inline void modify(int x, int y, T val){
-		for(int i = x; i < n; i += lsb(i)){
-			for(int j = y; j < m; j += lsb(j)){
-				fen[i][j] ^= val; // main operation
-			}
-		}
-	}
-
-	inline T get(int x,int y){
+	T get(int x, int y) { // return sum of [0, ..., x][0, ..., y]
 		T res{};
-		for(int i = x; i > 0; i -= lsb(i)){
-			for(int j = y; j > 0; j -= lsb(j)){
-				res ^= fen[i][j]; // main operation
-			}
-		}
+        for(int i = x; i >= 0; i = (i & (i + 1)) - 1) {
+            for(int j = y; j >= 0; j = (j & (j + 1)) - 1) {
+                res += fen[i][j];
+            }
+        }
 		return res;
-	}
-};
-
-struct node{
-	int val = ...;//set to default
-
-	void operator += (node & other){
-		...// val += other.val;
 	}
 };

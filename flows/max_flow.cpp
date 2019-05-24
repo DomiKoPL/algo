@@ -1,84 +1,82 @@
-namespace max_flow {
-	template <typename T>
-	struct Flow {
-		vector<vector<T> > capacity;
-		vector<vector<int> > graf;
-		vector<int> vis, ojciec;
-		int TIME = 1;
-		long long INF = 1e11 + 7; // zmienic
 
-		Flow(int n) {
-			capacity.resize(n,vector<T>(n));
-			graf.resize(n,vector<int>());
-			vis.resize(n,0);
-			ojciec.resize(n,0);
-		}
+template <typename T>
+struct Flow {
+	vector<vector<T> > capacity;
+	vector<vector<int> > graf;
+	vector<int> vis, ojciec;
+	int TIME = 1;
+	long long INF = 1e11 + 7; // zmienic
 
-		void addEdge(int a,int b,T cap) {
-			graf[a].push_back(b);
-			capacity[a][b] = cap;
-		}
+	Flow(int n) {
+		capacity.resize(n,vector<T>(n));
+		graf.resize(n,vector<int>());
+		vis.resize(n,0);
+		ojciec.resize(n,0);
+	}
 
-		void addEdge2(int a, int b, T cap) {
-			graf[a].push_back(b);
-			capacity[a][b] = cap;
+	void addEdge(int a,int b,T cap) {
+		graf[a].push_back(b);
+		capacity[a][b] = cap;
+	}
 
-			graf[b].push_back(a);
-			capacity[b][a] = 0;
-		}
+	void addEdge2(int a, int b, T cap) {
+		graf[a].push_back(b);
+		capacity[a][b] = cap;
 
-		int bfs(int start,int koniec) {
-			TIME++;
+		graf[b].push_back(a);
+		capacity[b][a] = 0;
+	}
 
-			ojciec[start] = -2;
-			vis[start] = TIME;
+	int bfs(int start,int koniec) {
+		TIME++;
 
-			queue<pair<int,T> >Q;
-			Q.push({ start,INF });
+		ojciec[start] = -2;
+		vis[start] = TIME;
 
-			while (Q.size()) {
-				int u = Q.front().first;
-				T flow = Q.front().second;
-				Q.pop();
+		queue<pair<int,T> >Q;
+		Q.push({ start,INF });
 
-				for (auto& v : graf[u]) {
-					if (vis[v] != TIME and capacity[u][v] > 0) {
-						vis[v] = TIME;
-						ojciec[v] = u;
+		while (Q.size()) {
+			int u = Q.front().first;
+			T flow = Q.front().second;
+			Q.pop();
 
-						T temp = min(flow, capacity[u][v]);
+			for (auto& v : graf[u]) {
+				if (vis[v] != TIME and capacity[u][v] > 0) {
+					vis[v] = TIME;
+					ojciec[v] = u;
 
-						if (v == koniec) {
-							return temp;
-						}
+					T temp = min(flow, capacity[u][v]);
 
-						Q.push({ v, temp });
+					if (v == koniec) {
+						return temp;
 					}
+
+					Q.push({ v, temp });
 				}
 			}
-
-			return 0;
 		}
 
-		T maxFlow(int start,int koniec) {
-			T flow = 0, curFlow;
+		return 0;
+	}
 
-			while (curFlow = bfs(start, koniec)) {
-				flow += curFlow;
-				int ob = koniec;
+	T maxFlow(int start,int koniec) {
+		T flow = 0, curFlow;
 
-				while (ob != start){
-					int poprz = ojciec[ob];
+		while (curFlow = bfs(start, koniec)) {
+			flow += curFlow;
+			int ob = koniec;
 
-					capacity[poprz][ob] -= curFlow;
-					capacity[ob][poprz] += curFlow;
+			while (ob != start){
+				int poprz = ojciec[ob];
 
-					ob = poprz;
-				}
+				capacity[poprz][ob] -= curFlow;
+				capacity[ob][poprz] += curFlow;
+
+				ob = poprz;
 			}
-
-			return flow;
 		}
-	};
-}
-using namespace max_flow;
+
+		return flow;
+	}
+};

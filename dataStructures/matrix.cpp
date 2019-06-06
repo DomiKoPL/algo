@@ -17,7 +17,8 @@ Matrix(const vector<vector<T>>& v) : Matrix(sz(v), sz(v[0])) {
 
 Matrix operator+(const Matrix& o) {
 	Matrix res(n, m);
-	FOR(i, 0, n - 1) FOR(j, 0, m - 1) res.a[i][j] = add(res.a[i][j], o.a[i][j]);
+	FOR(i, 0, n - 1) FOR(j, 0, m - 1)
+		res.a[i][j] = add(res.a[i][j], o.a[i][j]);
 	return res;
 }
 

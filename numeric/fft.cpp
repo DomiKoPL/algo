@@ -1,5 +1,4 @@
-namespace fft
-{
+namespace fft {
 	using namespace std;
 	typedef complex<double> comp;
 	const int MAXN = 40000;//set to max
@@ -27,7 +26,7 @@ namespace fft
 		}
 	}
 
-	vector<long long> mult(vector<long long> &a, vector<long long> &b) {
+	vector<long long> mult(vector<long long> & a, vector<long long> & b) {
 		int len = (int)a.size() + (int)b.size() - 1;
 		n = len;
 		while (n & (n - 1)) ++n;

@@ -1,8 +1,9 @@
 template <typename T>
 struct SOS { // sum over subset
 	vector<T>sum;
+	int n;
 
-	SOS(int n) {
+	SOS(int n) : n(n) {
 		sum.resize(1 << n);
 	}
 
@@ -10,7 +11,7 @@ struct SOS { // sum over subset
 		sum[mask] += val;
 	}
 
-	void calculate {
+	void calculate() {
 		for(int bit = 0; bit < n; bit++) {
 			for(int mask = 0; mask < (1 << n); mask++){
 				if(mask & (1 << bit)) {

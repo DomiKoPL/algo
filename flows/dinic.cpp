@@ -1,20 +1,18 @@
-struct Dinic {
-    static const int MAXN= 2e5 + 7;
+template <int N> struct Dinic {
     const int INF = 1e9 + 7;
 
-    struct Edge{
+    struct Edge {
         int from, to, cap, flow;
         Edge() {}
         Edge(int u, int v, int c, int f) : from(u), to(v), cap(c), flow(f) {}
     };
 
     vector<Edge> edges;
-    vector<int> G[MAXN];
-    bitset<MAXN> vis;
-    int d[MAXN], cur[MAXN];
+    vector<int> G[N];
+    bitset<N> vis;
+    int d[N], cur[N];
 
-    void init(int n)
-    {
+    void init(int n) {
         for(int i = 0; i <= n; i++) G[i].clear();
         edges.clear();
     }
@@ -72,4 +70,4 @@ struct Dinic {
         }
         return flow;
     }
-}flow;
+};

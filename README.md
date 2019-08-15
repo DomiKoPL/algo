@@ -3,7 +3,7 @@
 * [x] DSU
 * [x] fenwick tree
 * [x] kmax queue
-* [x] matrix multiplication
+* [x] matrix
 * [x] SOS
 * [x] sparse table
 * [x] simple treap
@@ -15,24 +15,31 @@
 
 ### Geometry
 * [x] convex hull
-* [x] CHT
 
 ### Graph
 * [x] centroid decomposition
-* [ ] HLD
+* [X] HLD
+* [X] Dynamic Connectivity Problem offline (DCP)
+* [X] dominator tree O(n log n)
 * [x] euler tour
 * [x] low
+* [X] LCA
 * [x] matching
 * [x] SCC
 * [x] 2SAT
 * [x] numer of clicks
 * [x] numer of simple cycles
+* [X] binary_lifting
 
 ### Numeric
 * [x] FFT
+* [X] FWT
 * [x] Miller-Rabin
 * [x] inversion
 * [x] discrete logarithm (baby step - giant step)
+* [X] primitive root (generator)
+* [X] Extended GCD
+* [X] Chinese Remainder Theorem (non-relatively prime modulo)
 
 ### String
 * [x] hashing
@@ -40,9 +47,9 @@
 * [x] Z function
 * [x] Manacher
 * [ ] Suffix Array
-* [ ] Aho-Corasick
+* [X] Aho-Corasick
 * [ ] KMR
 
 ### Tricks
 * [x] MO
-* [ ] [Deleting from a data structure in O(T(n)log n)](https://cp-algorithms.com/data_structures/deleting_in_log_n.html)
+* [x] CHT

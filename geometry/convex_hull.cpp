@@ -1,7 +1,7 @@
-int ccw(pii const& a, pii const& b, pii const& c) {
-    return a.first * (b.second - c.second) +
-            b.first * (c.second - a.second) +
-            c.first * (a.second - b.second);
+ll ccw(pii const& a, pii const& b, pii const& c) {
+    return 1ll * a.first * (b.second - c.second) +
+            1ll * b.first * (c.second - a.second) +
+            1ll * c.first * (a.second - b.second);
 }
 
 vpii make_hull(vpii points) {

@@ -24,7 +24,7 @@ Matrix operator+(const Matrix& o) {
 
 Matrix operator*(const Matrix& o) {
 	Matrix res(n, o.m);
-	FOR(i, 0, n - 1) FOR(j, 0, m - 1) FOR(k, 0, o.m - 1)
+	FOR(i, 0, n - 1) FOR(k, 0, o.m - 1) FOR(j, 0, m - 1)
 		res.a[i][k] = add(res.a[i][k], mul(a[i][j], o.a[j][k]));
 	return res;
 }

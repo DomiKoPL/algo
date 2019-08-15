@@ -1,36 +1,30 @@
+template <int N> struct TwoSat {
+    vector<int> graf[N], grafT[N]; //k - 2 * k - on , 2 * k + 1 - zaprzeczenie
+    bitset<N> used;
+    bitset<N> assignment;
+    vector<int> order;
+    int comp[N];
 
-struct twoSat {
-    int n;
-    vector<vector<int>> graf, grafT; //k - 2 * k - on , 2 * k + 1 - zaprzeczenie
-    vector<bool> used;
-    vector<int> order, comp;
-    vector<bool> assignment;
+    TwoSat() {
+        fill(comp, comp + N, -1);
+    }
 
-    twoSat(int n) : n(n) {
-        graf.resize(n);
-        grafT.resize(n);
-        used.resize(n, false);
-        comp.resize(n, -1);
-        assignment.resize(n / 2);
-    }   
+    int Id(int a) { return 2 * a; }
+    int Not(int a) { return a ^ 1; }
 
     //* a v b = !a => b i !b => a
-    void addEdge(int a, int b) {
-        int x = abs(a) - 1, y = abs(b) - 1; // -a to zaprzeczenie a
-        x *= 2;
-        y *= 2;
-        graf[x + (a > 0 ? 1 : 0)].push_back(y + (b > 0 ? 0 : 1));
-        graf[y + (b > 0 ? 1 : 0)].push_back(x + (a > 0 ? 0 : 1));
+    void addOr(int a, int b) {
+        graf[Not(a)].push_back(b);
+        graf[Not(b)].push_back(a);
     }
 
     //* a v a = !a => a
     void setTrue(int a) {
-        a--; 
-        graf[a * 2 + 1].push_back(a * 2);
+        graf[Not(a)].push_back(a);
     }
 
     void dfs1(int v) {
-        used[v] = true;
+        used[v] = true; 
         for (int u : graf[v]) {
             if (!used[u])
                 dfs1(u);
@@ -46,13 +40,12 @@ struct twoSat {
         }
     }
 
-    bool solve() {
+    bool solve(int n) {
         for (int i = 0; i < n; i++) {
             for (auto& v : graf[i]) {
                 grafT[v].push_back(i);
             }
         }
-
 
         for (int i = 0; i < n; i++) {
             if (!used[i]) {

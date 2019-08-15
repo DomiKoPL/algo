@@ -107,22 +107,3 @@ private:
 	node_ptr	mp_root;
 	TGenerator	m_generator;
 };
-
-
-using namespace std;
-
-int main() {
-    DynamicPrefSum<int> dps;
-
-    int n; cin >> n;
-    while(n--) {
-        int x; cin >> x;
-        if(x == 0) {
-            int p, v; cin >> p >> v;
-            dps.insert(p, v);
-        } else if(x == 1) {
-            int p; cin >> p;
-            cout << dps.getPrefSum(p) << endl;
-        }
-    }
-}

@@ -1,42 +1,23 @@
-template <typename T>
-vector<int> kmp_table(int n, const T &s) {
-	vector<int> p(n, 0);
-	int k = 0;
-	for (int i = 1; i < n; i++) {
-		while (k > 0 && !(s[i] == s[k])) {
-			k = p[k - 1];
+template <class T> vector<int> kmp(const T& w, const T& t) {
+	int n = SZ(t), m = SZ(w);
+	vi p(m + 1);
+	p[0] = -1;
+	FOR(i, 1, m + 1) {
+		p[i] = p[i - 1];
+		while(p[i] != -1 and w[p[i]] != w[i - 1]) {
+			p[i] = p[p[i]];
 		}
-		if (s[i] == s[k]) {
-			k++;
-		}
-		p[i] = k;
+		p[i]++;
 	}
-	return p;
-}
-template <typename T>
-vector<int> kmp_table(const T &s) {
-	return kmp_table((int) s.size(), s);
-}
-template <typename T>
-vector<int> kmp_search(int n, const T &s, int m, const T &w, const vector<int> &p) {
-	assert(n >= 1 && (int) p.size() == n);
-	vector<int> res;
-	int k = 0;
-	for (int i = 0; i < m; i++) {
-		while (k > 0 && (k == n || !(w[i] == s[k]))) {
-			k = p[k - 1];
+	vi res;
+	int j = 0;
+	FOR(i, 0, n) {
+		while(j != -1 and w[j] != t[i]) {
+			j = p[j];
 		}
-		if (w[i] == s[k]) {
-			k++;
-		}
-		if (k == n) {
-			res.push_back(i - n + 1);
+		if(++j == m) {
+			res.PB(i - m + 1);
 		}
 	}
 	return res;
-	// returns 0-indexed positions of occurrences of w in s
-}
-template <typename T>
-vector<int> kmp_search(const T &s, const T &w, const vector<int> &p) {
-	return kmp_search((int) s.size(), s, (int) w.size(), w, p);
 }

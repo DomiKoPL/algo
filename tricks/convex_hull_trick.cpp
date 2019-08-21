@@ -10,7 +10,8 @@ struct Line {
         return b - s->b < (s->m - m) * x;
     }
 };
-struct HullDynamic : public multiset<Line> { // will maintain upper hull for maximum
+// will maintain upper hull for maximum
+struct HullDynamic : public multiset<Line> { 
     bool bad(iterator y) {
         auto z = next(y);
         if (y == begin()) {
@@ -19,7 +20,8 @@ struct HullDynamic : public multiset<Line> { // will maintain upper hull for max
         }
         auto x = prev(y);
         if (z == end()) return y->m == x->m && y->b <= x->b;
-        return 1.0 * (x->b - y->b)*(z->m - y->m) >= 1.0 * (y->b - z->b)*(y->m - x->m);
+        return 1.0 * (x->b - y->b)*(z->m - y->m) >=
+                 1.0 * (y->b - z->b)*(y->m - x->m);
     }
     // m * x + b
     void insert_line(ll m, ll b) {

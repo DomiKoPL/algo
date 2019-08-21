@@ -1,5 +1,5 @@
 vector<int> z_function(string s) {
-    int n = (int) s.length();
+    int n = SZ(s);
     vector<int> z(n);
     for (int i = 1, l = 0, r = 0; i < n; ++i) {
         if (i <= r)

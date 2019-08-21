@@ -1,5 +1,4 @@
-template <typename T>
-struct SOS { // sum over subset
+template <typename T> struct SOS { // sum over subset
 	vector<T>sum;
 	int n;
 

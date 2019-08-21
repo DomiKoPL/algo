@@ -1,7 +1,7 @@
 ll solve(ll a, ll b, ll m) {
     ll n = sqrt(m) + 1;
     ll an = 1;
-    FOR(i, n) {
+    FOR(i, 0, n) {
         an = (an * a) % m;
     }
     unordered_map<ll, ll> M;

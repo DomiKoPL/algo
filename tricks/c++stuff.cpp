@@ -5,12 +5,16 @@
 #include <ext/pb_ds/tree_policy.hpp>
 using namespace __gnu_pbds;
 
-template <class key, class cmp = less<key>> using ordered_set = tree<key, null_type, cmp, rb_tree_tag, tree_order_statistics_node_update>;
-template <class key, class cmp = less_equal<key>> using ordered_multiset = tree<key, null_type, cmp, rb_tree_tag, tree_order_statistics_node_update>;
+template <class key, class cmp = less<key>> using ordered_set = 
+    tree<key, null_type, cmp, rb_tree_tag, tree_order_statistics_node_update>;
+template <class key, class cmp = less_equal<key>> using ordered_multiset =
+     tree<key, null_type, cmp, rb_tree_tag, tree_order_statistics_node_update>;
 //* find_by_order(k) - returns an iterator to the k-th largest element (counting from zero)
 //* order_of_key(k)  - the number of items in a set that are strictly smaller than k.
-template <class key, class value, class cmp = less<key>> using ordered_map = tree<key, value, cmp, rb_tree_tag, tree_order_statistics_node_update>;
-using pref_trie = trie<string, null_type, trie_string_access_traits<>, pat_trie_tag, trie_prefix_search_node_update>;
+template <class key, class value, class cmp = less<key>> using ordered_map = 
+    tree<key, value, cmp, rb_tree_tag, tree_order_statistics_node_update>;
+using pref_trie = 
+    trie<string, null_type, trie_string_access_traits<>, pat_trie_tag, trie_prefix_search_node_update>;
 // * prefix_range(s) - return iterator range, prefix equal to s
 
 namespace debug {

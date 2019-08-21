@@ -40,14 +40,15 @@
 * [X] primitive root (generator)
 * [X] Extended GCD
 * [X] Chinese Remainder Theorem (non-relatively prime modulo)
+* [X] resultant (Determinant of cycli matrix)
 
 ### String
 * [x] hashing
 * [x] KMP
 * [x] Z function
 * [x] Manacher
-* [ ] Suffix Array
 * [X] Aho-Corasick
+* [ ] Suffix Array
 * [ ] KMR
 
 ### Tricks

@@ -44,6 +44,15 @@ namespace binary_lifting {
 		return gl[u] + gl[v] - 2 * gl[lca(u, v)];
 	}
 
+	int get_up(int u, int d) {
+		for(int l = L - 1; l >= 0; l--) {
+			if(d & (1 << l)) {
+				u = par[u][l];
+			}
+		}
+		return u;
+	}
+
 	int get_mid(int u, int v) {
 		if(gl[v] > gl[u]) swap(u, v);
 		int d = dist(u, v) / 2;

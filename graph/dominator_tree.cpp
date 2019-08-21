@@ -52,8 +52,8 @@ struct DomTree {
         }
         TIME = 0;
         preDFS(s);
-        n = TIME;   
-        FORR(i, n, 1) {
+        n = TIME;
+        for(int i = n; i >= 1; i--) {
             for(auto& v : rgraph[i]) {
                 sdom[i] = min(sdom[i], sdom[Find(v)]);
             }
@@ -67,7 +67,6 @@ struct DomTree {
                 } else {
                     idom[w] = v;
                 }
-                
             }
 
             if(i > 1) {

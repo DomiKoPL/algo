@@ -34,14 +34,12 @@ template <int N> struct LCA {
 
 
     int query(int a, int b) {
-        a--, b--;
         a = fir[a], b = fir[b];
         if(a > b) swap(a, b);
-        return nr[minq(a, b)] + 1;
+        return nr[minq(a, b)];
     }
 
     void addEdge(int a, int b) {
-        a--, b--;
         graph[a].push_back(b);
         graph[b].push_back(a);
     }

@@ -7,7 +7,6 @@ template<int N> struct mcf { // assume no negative cycles
     vector<Edge> adj[N];
  
     void addEdge(int u, int v, ll cap, ll cost) {
-        debug(u, v, cap, cost);
         Edge a{v, SZ(adj[v]), 0, cap, cost}, b{u, SZ(adj[u]), 0, 0, -cost};
         adj[u].PB(a), adj[v].PB(b);
     }

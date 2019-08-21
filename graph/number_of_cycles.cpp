@@ -1,5 +1,5 @@
 template <int N> struct NumberOfCycles {
-    // number of simple cycles
+    // number of simple cycles in O(2^n * n)
     vi graph[N];
     bitset<N> mat[N];
     ll dp[1 << N][N]; // dp[mask][i] - number of paths from lowest bit in mask to i

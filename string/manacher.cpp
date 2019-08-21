@@ -1,5 +1,6 @@
 template <typename T>
-vector<int> manacher(int n, const T &s) {
+vector<int> manacher(const T &s) {
+	int n = SZ(s);
 	if (n == 0) {
 		return vector<int>();
 	}
@@ -29,8 +30,4 @@ vector<int> manacher(int n, const T &s) {
 	// calculate i = (z + 1) >> 1 and j = z >> 1
 	// now there is a palindrome from i - res[z] to j + res[z]
 	// (watch out for i > j and res[z] = 0)
-}
-template <typename T>
-vector<int> manacher(const T &s) {
-  return manacher((int) s.size(), s);
 }

@@ -41,6 +41,7 @@
 * [X] Extended GCD
 * [X] Chinese Remainder Theorem (non-relatively prime modulo)
 * [X] resultant (Determinant of cycli matrix)
+* [X] Tonelli–Shanks
 
 ### String
 * [x] hashing

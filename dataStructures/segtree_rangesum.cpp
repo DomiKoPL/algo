@@ -35,9 +35,9 @@ void insertTree(int a, int b, ll val, int node = 1, int lo = 0, int hi = treeSiz
 
 ll getSum(int a, int b, int node = 1, int lo = 0, int hi = treeSize - 1) {
 	update(node, lo, hi);
-	if (lo > hi || lo > b || hi < a)
+	if (lo > hi or lo > b or hi < a)
 		return 0;
-	if (lo >= a && hi <= b)
+	if (lo >= a and hi <= b)
 		return tree[node];
 	int mid = (lo + hi) / 2;
 	return getSum(a, b, node * 2, lo, mid) + 

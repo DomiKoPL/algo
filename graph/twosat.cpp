@@ -1,16 +1,16 @@
+int Id(int a) { return 2 * a; }
+int Not(int a) { return a ^ 1; }
+
 template <int N> struct TwoSat {
-    vector<int> graf[N], grafT[N]; //k - 2 * k - on , 2 * k + 1 - zaprzeczenie
-    bitset<N> used;
+    vector<int> graf[2 * N], grafT[2 * N]; //k - 2 * k - on , 2 * k + 1 - zaprzeczenie
+    bitset<2 * N> used;
     bitset<N> assignment;
     vector<int> order;
-    int comp[N];
+    int comp[2 * N];
 
     TwoSat() {
-        fill(comp, comp + N, -1);
+        fill(comp, comp + 2 * N, -1);
     }
-
-    int Id(int a) { return 2 * a; }
-    int Not(int a) { return a ^ 1; }
 
     //* a v b = !a => b i !b => a
     void addOr(int a, int b) {
@@ -41,6 +41,8 @@ template <int N> struct TwoSat {
     }
 
     bool solve(int n) {
+        n = n * 2;
+
         for (int i = 0; i < n; i++) {
             for (auto& v : graf[i]) {
                 grafT[v].push_back(i);

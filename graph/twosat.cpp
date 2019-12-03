@@ -35,8 +35,9 @@ template <int N> struct TwoSat {
     void dfs2(int v, int cl) {
         comp[v] = cl;
         for (int u : grafT[v]) {
-            if (comp[u] == -1)
+            if (comp[u] == -1) {
                 dfs2(u, cl);
+            }
         }
     }
 

@@ -15,34 +15,24 @@ void XOR(ll& a, ll& b)  {
     b = (x - y + MOD) % MOD;
 }
 
+//* FWT^-1(A) = FWT(A) / n
+
 void OR(ll& a, ll& b) {
     ll x = a, y = b;
     a = (x) % MOD;
     b = (x + y) % MOD;
 }
 
+void OR_REV(ll& a, ll& b) {
+    ll x = a, y = b;
+    a = (x) % MOD;
+    b = (x - y) % MOD;
+}
+
 /*
     ! C[k] = SUM A[i] * B[j] : g(i, j) = k
     
-    * C = f(A, B)
-    * 
-    * XOR:
-    * C0 = f(A0, B0) + f(A1, B1)
-    * C1 = f(A0, B1) + f(A1, B0)
-    * 
-    * C0 + C1 = ... = f(A0 + B0, A1 + B1)
-    * C0 - C1 = ... = f(A0 - B0, A1 - B1)
-    * 
-    * (C0 + C1) :: (C0 - C1) = f(A0 + B0, A1 + B1) ::
-    *                           f(A0 - B0, A1 - B1)
-    * 
-    * FWT(A) = FWT(A0 :: A1) = FWT(A0 + A1) :: FWT(A0 - A1)
-    * 
-    * FWT(C) = FWT(A) · FWT(B)
-    * 
-    * C = FWT^-1(FWT(C)) = FWT^-1(FWT(A) * FWT(B))
-    * 
-    * FWT^-1(A) = FWT(A) / n
+    *https://zerol.me/2018/08/22/FWT-FFT/
     * 
     *  algo:
     *  fwt(A, f)

@@ -31,6 +31,8 @@ int resultant(vi a, vi b) {
 
 
 /*
+https://codeforces.com/gym/102129/problem/G
+
 use it to calc Determinant of cycli matrix.
 [a1 a2 ... an-1 an]
 [an a1 ... an-2 an-1]

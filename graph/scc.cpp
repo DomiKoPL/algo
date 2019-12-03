@@ -1,34 +1,52 @@
-vector <int> graf[MAXN];
-int low[MAXN], preorder[MAXN];
-bitset<MAXN>vis, naStacku;
-int czas = 1;
+const int N = 1e5  + 7;
+vi graf[N], comp[N], sccs;
+int low[N], pre[N], snr[N];
+bitset<N>vis, naS;
+int TIME = 1;
 stack<int>Q;
-void DFS(int u) {
-	vis[u] = true;
-	low[u] = preorder[u] = ++czas;
-	Q.push(u);
-	naStacku[u] = true;
 
-	for (auto& v : graf[u]) {
+void DFS(int u) {
+	vis[u] = naS[u] = true;
+	low[u] = pre[u] = ++TIME;
+	Q.push(u);
+
+	TRAV(v, graf[u]) {
 		if (!vis[v]) {
 			DFS(v);
-			low[u] = min(low[u], low[v]);
+			setmin(low[u], low[v]);
 		}
-		else if (naStacku[v]) {
-			low[u] = min(low[u], low[v]);
+		else if (naS[v]) {
+			setmin(low[u], low[v]);
 		}
 	}
     
-	if (low[u] == preorder[u]) {
-		int w = Q.top();
-        // add u to component
-		naStacku[u] = false;
-		while (w != u) {
-            // add w to component
-			naStacku[w] = false;
-			Q.pop();
-			w = Q.top();
+	if (low[u] == pre[u]) {
+		sccs.PB(u);
+		int w;
+		do {
+			w = Q.top(); Q.pop();
+			comp[u].PB(w);
+			snr[w] = u;
+			naS[w] = false;
+		} while(w != u);
+	}
+}
+
+vi stree[N];
+void build(int n) {
+	FOR(i, n) if(!vis[i]) {
+		DFS(i);
+	}
+
+	bitset<N> temp;
+	TRAV(u, sccs) {
+		TRAV(i, comp[u]) TRAV(v, graf[i]) {
+			if(snr[v] != u and !temp[snr[v]]) {
+				stree[u].PB(snr[v]);
+				temp[snr[v]] = 1;
+			}
 		}
-		Q.pop();
+		
+		TRAV(v, graf[u]) temp[snr[v]] = 0;
 	}
 }

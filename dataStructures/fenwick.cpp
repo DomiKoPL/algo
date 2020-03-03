@@ -19,4 +19,8 @@ template <class T> struct Fenwick {
         }
 		return res;
 	}
+
+	T get(int x, int y) { // return sum of [x, ..., y]
+		return get(y) - (x > 0 ? get(x - 1) : 0);
+	}
 };

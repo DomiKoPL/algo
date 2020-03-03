@@ -1,6 +1,6 @@
 template <int N> struct LCA {
     vector<int> graph[N];
-    int nr[N], pre[N], fir[N];
+    int nr[N], pre[N], fir[N], dist[N];
     int TIME = 0, id = 0;
 
     int sparse[2 * N][21]; //! 2^X > 2 * N
@@ -13,6 +13,7 @@ template <int N> struct LCA {
         fir[u] = id++;
 
         for(auto& v : graph[u]) if(v != p) {
+            dist[v] = dist[u] + 1;
             dfs(v, u);
             sparse[id++][0] = pre[u];
         }
@@ -37,6 +38,10 @@ template <int N> struct LCA {
         a = fir[a], b = fir[b];
         if(a > b) swap(a, b);
         return nr[minq(a, b)];
+    }
+
+    int distance(int a, int b) {
+        return dist[a] + dist[b] - 2 * dist[query(a, b)];
     }
 
     void addEdge(int a, int b) {

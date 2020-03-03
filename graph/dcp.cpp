@@ -51,7 +51,7 @@ struct DCP {
 		rank[x.v] = x.rankv;
 	}
 };
- 
+int n;
 struct DCP_tree {
 	struct query {
 		int u, v;

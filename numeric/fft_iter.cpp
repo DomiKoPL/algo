@@ -1,5 +1,5 @@
 namespace fft {
-	using base =  complex<double>;
+	using base = complex<double>;
 
 	void fft(vector<base>& a, bool invert) {
 		int n = (int)a.size();
@@ -31,7 +31,8 @@ namespace fft {
 			a[i] /= n;
 	}
 	
-	vector<int> mult(vector<int> const& a, vector<int> const& b) {
+	template <typename T>
+	vector<T> mult(vector<T> const& a, vector<T> const& b) {
 		vector<base> fa(a.begin(), a.end()), fb(b.begin(), b.end());
 		size_t n = 1;
 		while (n < max(a.size(), b.size()))  n <<= 1;
@@ -43,10 +44,10 @@ namespace fft {
 			fa[i] *= fb[i];
 		fft(fa, true);
 	
-		vector<int> res;
+		vector<T> res;
 		res.resize(n);
 		for (size_t i = 0; i<n; ++i)
-			res[i] = int(fa[i].real() + 0.5);
+			res[i] = T(fa[i].real() + 0.5);
 		return res;
 	}
 }

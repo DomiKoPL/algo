@@ -5,14 +5,14 @@ struct hash_struct {
 
     hash_struct(string const& s) {
         int n = s.size();
-        pot.resize(n);
+        pot.resize(n + 1);
         hasz.resize(n);
         
         pot[0] = 1;
-	    FOR(i, 1, n) pot[i] = (pot[i - 1] * P) % MOD;
+	    FOR(i, 1, n + 1) pot[i] = (pot[i - 1] * P) % MOD;
 
         hasz[0] = (s[0] - '0' + 1);
-        FOR(i, 1, n - 1) {
+        FOR(i, 1, n) {
             hasz[i] = (hasz[i - 1] * P + (s[i] - '0' + 1)) % MOD;	
         }
     }

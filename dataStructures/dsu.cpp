@@ -1,28 +1,22 @@
 struct Dsu {
-	vector<int>g, s; //group, size
+	vector<int> gr, roz;
 
 	Dsu(int n) {
-		g.resize(n);
-		s.resize(n);
-		for (int i = 0; i < n; ++i) {
-			g[i] = i;
-			s[i] = 1;
-		}
+		gr.resize(n);
+		iota(begin(gr), end(gr), 0);
+		roz.resize(n, 1);
 	}
 
 	int Find(int a){
-		if(g[a] == a)return a;
-		return g[a] = Find(g[a]);
+		return (gr[a] == a ? a : gr[a] = Find(gr[a]));
 	}
 
-	bool Union(int a,int b) {
+	bool Union(int a, int b) {
 		a = Find(a), b = Find(b);
 		if(a == b) return false;
-		if(s[a] > s[b]) swap(a,b);
+		if(roz[a] > roz[b]) swap(a,b);
 
-		s[b] += s[a];
-		g[a] = b;
-		
-		return true;
+		roz[b] += roz[a];
+		return gr[a] = b, true;
 	}
 };

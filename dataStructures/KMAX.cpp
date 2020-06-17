@@ -9,11 +9,12 @@ template<typename T> struct KMaxQueue {
 	void add(int id) {
 		int count = 0;
 		while(Q.size() and val[Q.back().first] <= val[id]) {
+			
 			count += Q.back().second + 1;
 			Q.pop_back();
 		}
 
-		Q.push_back();
+		Q.push_back(id);
 	}
 
 	void pop() {

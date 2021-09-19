@@ -1,4 +1,3 @@
-
 template <typename T> struct HLD {
 	static const int N = 1e5 + 7;
 	static const int TS = 1 << 17;

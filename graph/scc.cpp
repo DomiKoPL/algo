@@ -1,7 +1,8 @@
 const int N = 1e5  + 7;
 vi graf[N], comp[N], sccs;
+
 int low[N], pre[N], snr[N];
-bitset<N>vis, naS;
+bitset<N> vis, naS;
 int TIME = 1;
 stack<int>Q;
 
@@ -10,22 +11,21 @@ void DFS(int u) {
 	low[u] = pre[u] = ++TIME;
 	Q.push(u);
 
-	TRAV(v, graf[u]) {
+	for(auto v : graf[u]) {
 		if (!vis[v]) {
 			DFS(v);
-			setmin(low[u], low[v]);
-		}
-		else if (naS[v]) {
-			setmin(low[u], low[v]);
+			low[u] = min(low[u], low[v]);
+		} else if (naS[v]) {
+			low[u] = min(low[u], pre[v]);
 		}
 	}
     
 	if (low[u] == pre[u]) {
-		sccs.PB(u);
+		sccs.push_back(u);
 		int w;
 		do {
 			w = Q.top(); Q.pop();
-			comp[u].PB(w);
+			comp[u].push_back(w);
 			snr[w] = u;
 			naS[w] = false;
 		} while(w != u);
@@ -47,6 +47,6 @@ void build(int n) {
 			}
 		}
 		
-		TRAV(v, graf[u]) temp[snr[v]] = 0;
+		TTRAV(i, comp[u]) TRAV(v, graf[i]) temp[snr[v]] = 0;
 	}
 }
